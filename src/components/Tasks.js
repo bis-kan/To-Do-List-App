@@ -1,6 +1,6 @@
-import React from 'react';
-import Task from './Task';
-import List from '@mui/material/List';
+import React from "react";
+import Task from "./Task";
+import List from "@mui/material/List";
 
 const Tasks = ({ tasks, onEdit, onDelete }) => {
   return (
