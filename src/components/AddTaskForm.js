@@ -10,25 +10,41 @@ import Alert from "@mui/material/Alert";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 
+/**
+ * AddTaskForm Component
+ * 
+ * A form component for creating and submitting a new task. Utilizes Material-UI components
+ * for a clean and styled UI. Handles form validation and state management for task attributes. */
+
+//onAdd - Callback function triggered when a new task is successfully submitted.
+//onAdd function is defined in App.js line-70
+
 const AddTaskForm = ({ onAdd }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState(""); //Task name
+  const [description, setDescription] = useState(""); //Task description
   const [dueDate, setDueDate] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
   const [status, setStatus] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); //error message for form validation
+
+ //FORM SUBMISSION HANDLER 
+ /**
+   * Handles form submission.
+   * Validates that all required fields are filled before calling the onAdd callback.
+   * If validation fails, an error message is displayed.
+   * After submission, form fields are reset to their default values.*/
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+// Validate that all fields are filled. If any are empty, set an error message
     if (!name || !description || !dueDate || !assignedTo) {
       setError("All fields are required");
       return;
     }
 
-    //after sending value to app, making it ready for the next input by resetting it
+//After sending value to app, making it ready for the next input by resetting it
     onAdd({ name, description, dueDate, assignedTo, status });
-
+// Reset the form fields after submission
     setName("");
     setDescription("");
     setDueDate("");
@@ -36,7 +52,7 @@ const AddTaskForm = ({ onAdd }) => {
     setStatus("in-progress");
     setError("");
   };
-
+ //Form Rendering
   return (
     <Box component="form" onSubmit={onSubmit} sx={{ mt: 3 }}>
       <Divider>

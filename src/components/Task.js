@@ -11,49 +11,78 @@ import TaskStatusButton from "./TaskStatusButton";
 import { Stack } from "@mui/material";
 import Divider from "@mui/material/Divider";
 
+/**
+ * Task Component
+ * 
+ * Displays individual task details with options to edit, delete, and change the task's status.
+ * The component allows toggling between viewing and editing the task details.
+ * 
+ * Props:
+ * - `task` (object): The task object containing the task's details (name, description, assignedTo, etc.).
+ * - `onEdit` (function): Callback function to handle task editing (usually to update the task in the parent component).
+ * - `onDelete` (function): Callback function to handle task deletion.
+ */
+
 const Task = ({ task, onEdit, onDelete }) => {
+  // useState hooks to manage local state for editing mode and edited task data
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState({ ...task });
-  const [status, setStatus] = useState("Not Started");
+
+  /**
+   * Updates the status of the task and triggers the onEdit callback.
+   */
+
+  const setStatus = (newStatus) => {
+    const updatedTask = { ...editedTask, status: newStatus };
+    onEdit(updatedTask); //Calling the parent component's onEdit function to update the task
+    setEditedTask(updatedTask); // Updating the local state with the new task details
+  }
 
   const handleEdit = (e) => {
     e.preventDefault();
-    setIsEditing(!isEditing);
+    setIsEditing(!isEditing); // Toggle editing mode
     if (isEditing) {
-      onEdit(editedTask);
+      onEdit(editedTask); // Save the edited task if switching to view mode
     }
   };
 
+   /**
+   * Handles the status change when the task status button is clicked.
+   * The status cycles through a predefined set of statuses: not-started, in-progress, review, and completed.
+   */
+  
   const handleButtonClick = () => {
-    switch (status) {
-      case "Not Started":
-        setStatus("In-progress");
+    switch (editedTask.status) {
+      case "not-started":
+        setStatus("in-progress");
         break;
-      case "In-progress":
-        setStatus("Review");
+      case "in-progress":
+        setStatus("review");
         break;
-      case "Review":
-        setStatus("Completed");
+      case "review":
+        setStatus("completed");
         break;
-      case "Completed":
-        setStatus("Not Started"); // You can change this behavior if needed
+      case "completed":
+        setStatus("not-started"); // You can change this behavior if needed
         break;
       default:
-        setStatus("Not Started");
+        setStatus("not-started");
         break;
     }
   };
+
+  
 
   // Color background status
   const getStatusStyle = (status) => {
     switch (status) {
-      case "Not Started":
+      case "not Started":
         return { backgroundColor: "lightgray", color: "black" };
-      case "In-progress":
+      case "in-progress":
         return { backgroundColor: "yellow", color: "black" };
-      case "Review":
+      case "review":
         return { backgroundColor: "blue", color: "white" };
-      case "Completed":
+      case "completed":
         return { backgroundColor: "green", color: "white" };
       default:
         return { backgroundColor: "lightgray", color: "black" };
@@ -88,7 +117,7 @@ const Task = ({ task, onEdit, onDelete }) => {
       sx={{
         mb: 2,
         border:
-          status === "Completed" ? "2px solid green" : "2px solid lightgray", // Change border color based on status
+        editedTask.status === "completed" ? "2px solid green" : "2px solid lightgray", // Change border color based on status
         marginBottom: "1rem",
         transition: "border-color 0.3s", // Smooth transition for border color change
       }}
@@ -109,17 +138,17 @@ const Task = ({ task, onEdit, onDelete }) => {
                   <Typography
                     variant="body2"
                     style={{
-                      ...getStatusStyle(status),
+                      ...getStatusStyle(editedTask.status),
                       padding: "6px",
                       borderRadius: "5px",
                       textAlign: "center",
                     }}
                   >
-                    {status}
+                    {editedTask.status}
                   </Typography>
                 </Stack>
                 <TaskStatusButton
-                  currentStatus={status}
+                  currentStatus={editedTask.status}
                   onButtonClick={handleButtonClick}
                 />
               </Stack>

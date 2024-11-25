@@ -4,13 +4,13 @@ import Button from "@mui/material/Button";
 const TaskStatusButton = ({ currentStatus, onButtonClick }) => {
   const getButtonLabel = () => {
     switch (currentStatus) {
-      case "Not Status":
+      case "not-started":
         return "Accept Task";
-      case "In-progress":
+      case "in-progress":
         return "Mark to Review";
-      case "Review":
+      case "review":
         return "Mark Completed";
-      case "Completed":
+      case "completed":
         return "Reset Task"; // or any other relevant action
       default:
         return "Accept Task";
@@ -23,5 +23,6 @@ const TaskStatusButton = ({ currentStatus, onButtonClick }) => {
     </Button>
   );
 };
+
 
 export default TaskStatusButton;

@@ -40,8 +40,12 @@ const App = () => {
     setTasks(
       tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
     );
-  };
+    // Optional: Save the updated task list to localStorage if needed
+    localStorage.setItem('tasks', JSON.stringify(tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))));
 
+  };
+  
+    
   // Delete Task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
