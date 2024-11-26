@@ -24,10 +24,15 @@ const App = () => {
   }, []);
 
   // Save tasks to localStorage whenever tasks array changes
-  useEffect(() => {
-    if (!isLoaded) return;
+  /*useEffect(() => {
+    if (!isLoaded) return {
     localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+  }, [tasks]);*/
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }, [tasks, isLoaded]);
 
   // Add Task
   const addTask = (task) => {

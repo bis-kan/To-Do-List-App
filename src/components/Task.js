@@ -110,7 +110,13 @@ const Task = ({ task, onEdit, onDelete }) => {
   // Reset task status to Not Status
   const resetTask = (e) => {
     e.preventDefault();
-    setStatus("Not Started");
+    setStatus({
+    name: "", // Initial name
+    description: "", // Initial description
+    dueDate: new Date(), // Today's date (or some default value)
+    assignedTo: "", // Initial assigned to
+    status: "Not Started", // Initial status
+  });
   };
   return (
     <Card
@@ -237,6 +243,7 @@ const Task = ({ task, onEdit, onDelete }) => {
         <IconButton onClick={() => onDelete(task.id)} color="error">
           <DeleteIcon />
         </IconButton>
+        <IconButton onClick={resetTask} color="primary"></IconButton>
       </Box>
     </Card>
   );
