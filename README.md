@@ -90,15 +90,15 @@ JavaScript library for building user interfaces.
 
 For state management (e.g., useState).
 
-###
+### Material-UI:
 
-Material-UI: React component library for a modern and responsive design.
+React component library for a modern and responsive design.
 
-###
+### CSS:
 
-CSS: Custom styling integrated with Material-UI for consistent appearance.
+Custom styling integrated with Material-UI for consistent appearance.
 
-# Project structure
+## Project structure
 
 ```bash
 To-Do-List-App/
