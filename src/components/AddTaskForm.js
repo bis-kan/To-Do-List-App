@@ -61,7 +61,7 @@ const AddTaskForm = ({ onAdd }) => {
         <Chip label="Add Task" size="small" />
       </Divider>
       {error && <Alert severity="error">{error}</Alert>}
-      {success && <Alert severity="success">Your task has been added.</Alert>}
+      {success && <Alert severity="success">Your task has been added. You can add another task. </Alert>}
 
       <TextField
         label="Task Name"
